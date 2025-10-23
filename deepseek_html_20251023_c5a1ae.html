@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif Kimia: Reaksi Kimia</title>
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            background-color: var(--light);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dark);
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .example-box {
+            background-color: #e9f5ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .chemical-equation {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .simulation-container {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .simulation-box {
+            width: 100%;
+            height: 300px;
+            background-color: white;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            margin: 1rem auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .atom {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: all 1s ease;
+        }
+        
+        .control-panel {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.7rem;
+        }
+        
+        .option {
+            padding: 0.8rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        
+        .option.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .option.correct {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .option.incorrect {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .submit-btn {
+            display: block;
+            margin: 1.5rem auto 0;
+            background-color: var(--accent);
+        }
+        
+        .result {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .visual-aid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            gap: 1rem;
+        }
+        
+        .visual-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .visual-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .visual-aid {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Media Pembelajaran Interaktif Kimia</h1>
+        <p class="subtitle">Ciri-Ciri, Jenis, dan Cara Menuliskan Reaksi Kimia</p>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" data-target="intro">Pengantar</button>
+            <button class="nav-btn" data-target="ciri-ciri">Ciri-Ciri Reaksi Kimia</button>
+            <button class="nav-btn" data-target="jenis">Jenis Reaksi Kimia</button>
+            <button class="nav-btn" data-target="penulisan">Penulisan Reaksi Kimia</button>
+            <button class="nav-btn" data-target="simulasi">Simulasi</button>
+            <button class="nav-btn" data-target="latihan">Latihan Soal</button>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="intro" class="content-section active">
+            <h2>Pengantar Reaksi Kimia</h2>
+            <p>Reaksi kimia adalah proses di mana satu atau lebih zat (reaktan) diubah menjadi satu atau lebih zat yang berbeda (produk). Reaksi kimia melibatkan pemutusan dan pembentukan ikatan kimia antara atom-atom.</p>
+            
+            <div class="visual-aid">
+                <div class="visual-item">
+                    <div class="visual-icon">🧪</div>
+                    <h3>Reaktan</h3>
+                    <p>Zat awal dalam reaksi kimia</p>
+                </div>
+                <div class="visual-item">
+                    <div class="visual-icon">⚗️</div>
+                    <h3>Produk</h3>
+                    <p>Zat hasil dari reaksi kimia</p>
+                </div>
+                <div class="visual-item">
+                    <div class="visual-icon">⚡</div>
+                    <h3>Energi</h3>
+                    <p>Perubahan energi selama reaksi</p>
+                </div>
+            </div>
+            
+            <p>Dalam media pembelajaran ini, kita akan mempelajari:</p>
+            <ul>
+                <li>Ciri-ciri reaksi kimia</li>
+                <li>Jenis-jenis reaksi kimia</li>
+                <li>Cara menulis persamaan reaksi kimia yang setara</li>
+            </ul>
+            
+            <div class="example-box">
+                <p><strong>Contoh Reaksi Kimia:</strong></p>
+                <div class="chemical-equation">
+                    2H₂ + O₂ → 2H₂O
+                </div>
+                <p>Reaksi antara gas hidrogen (H₂) dan gas oksigen (O₂) menghasilkan air (H₂O).</p>
+            </div>
+        </section>
+        
+        <section id="ciri-ciri" class="content-section">
+            <h2>Ciri-Ciri Reaksi Kimia</h2>
+            <p>Reaksi kimia dapat dikenali melalui beberapa ciri-ciri yang teramati. Berikut adalah ciri-ciri utama reaksi kimia:</p>
+            
+            <h3>1. Perubahan Warna</h3>
+            <p>Terjadi perubahan warna pada zat yang bereaksi. Contoh: ketika besi berkarat, warna besi berubah dari abu-abu mengilap menjadi coklat kemerahan.</p>
+            
+            <h3>2. Pembentukan Endapan</h3>
+            <p>Terbentuknya zat padat yang tidak larut dalam larutan. Contoh: ketika larutan perak nitrat dicampur dengan larutan natrium klorida, terbentuk endapan putih perak klorida.</p>
+            
+            <h3>3. Perubahan Suhu</h3>
+            <p>Terjadi perubahan suhu (naik atau turun) selama reaksi berlangsung. Reaksi yang melepaskan panas disebut eksoterm, sedangkan reaksi yang menyerap panas disebut endoterm.</p>
+            
+            <h3>4. Pembentukan Gas</h3>
+            <p>Terbentuknya gelembung gas selama reaksi berlangsung. Contoh: ketika logam seng direaksikan dengan asam klorida, terbentuk gelembung gas hidrogen.</p>
+            
+            <h3>5. Perubahan Bau</h3>
+            <p>Terjadi perubahan bau pada zat yang bereaksi. Contoh: ketika susu basi, baunya berubah menjadi asam.</p>
+            
+            <div class="simulation-container">
+                <h3>Simulasi Ciri-Ciri Reaksi Kimia</h3>
+                <div class="simulation-box" id="ciri-simulation">
+                    <!-- Simulasi akan diisi dengan JavaScript -->
+                </div>
+                <div class="control-panel">
+                    <button class="btn" id="start-ciri">Mulai Simulasi</button>
+                    <button class="btn" id="reset-ciri">Reset</button>
+                </div>
+            </div>
+        </section>
+        
+        <section id="jenis" class="content-section">
+            <h2>Jenis-Jenis Reaksi Kimia</h2>
+            <p>Reaksi kimia dapat dikelompokkan menjadi beberapa jenis berdasarkan perubahan yang terjadi. Berikut adalah jenis-jenis reaksi kimia:</p>
+            
+            <h3>1. Reaksi Kombinasi (Sintesis)</h3>
+            <p>Dua atau lebih zat bergabung membentuk satu zat baru.</p>
+            <div class="chemical-equation">
+                A + B → AB
+            </div>
+            <p><strong>Contoh:</strong> 2H₂ + O₂ → 2H₂O</p>
+            
+            <h3>2. Reaksi Dekomposisi (Analisis)</h3>
+            <p>Satu zat terurai menjadi dua atau lebih zat yang lebih sederhana.</p>
+            <div class="chemical-equation">
+                AB → A + B
+            </div>
+            <p><strong>Contoh:</strong> 2H₂O → 2H₂ + O₂</p>
+            
+            <h3>3. Reaksi Penggantian Tunggal</h3>
+            <p>Satu unsur menggantikan unsur lain dalam suatu senyawa.</p>
+            <div class="chemical-equation">
+                A + BC → AC + B
+            </div>
+            <p><strong>Contoh:</strong> Zn + 2HCl → ZnCl₂ + H₂</p>
+            
+            <h3>4. Reaksi Penggantian Ganda</h3>
+            <p>Ion-ion dari dua senyawa saling bertukar pasangan.</p>
+            <div class="chemical-equation">
+                AB + CD → AD + CB
+            </div>
+            <p><strong>Contoh:</strong> AgNO₃ + NaCl → AgCl + NaNO₃</p>
+            
+            <h3>5. Reaksi Pembakaran</h3>
+            <p>Zat bereaksi dengan oksigen, biasanya menghasilkan panas dan cahaya.</p>
+            <div class="chemical-equation">
+                Bahan bakar + O₂ → CO₂ + H₂O
+            </div>
+            <p><strong>Contoh:</strong> CH₄ + 2O₂ → CO₂ + 2H₂O</p>
+            
+            <div class="simulation-container">
+                <h3>Simulasi Jenis Reaksi Kimia</h3>
+                <div class="simulation-box" id="jenis-simulation">
+                    <!-- Simulasi akan diisi dengan JavaScript -->
+                </div>
+                <div class="control-panel">
+                    <select id="reaction-type">
+                        <option value="kombinasi">Reaksi Kombinasi</option>
+                        <option value="dekomposisi">Reaksi Dekomposisi</option>
+                        <option value="penggantian-tunggal">Reaksi Penggantian Tunggal</option>
+                        <option value="penggantian-ganda">Reaksi Penggantian Ganda</option>
+                    </select>
+                    <button class="btn" id="start-jenis">Mulai Simulasi</button>
+                </div>
+            </div>
+        </section>
+        
+        <section id="penulisan" class="content-section">
+            <h2>Cara Menulis Persamaan Reaksi Kimia Setara</h2>
+            <p>Persamaan reaksi kimia yang setara harus memenuhi hukum kekekalan massa, di mana jumlah atom setiap unsur di ruas kiri (reaktan) harus sama dengan jumlah atom di ruas kanan (produk).</p>
+            
+            <h3>Langkah-langkah Menulis Persamaan Reaksi Setara:</h3>
+            <ol>
+                <li>Tulis rumus kimia reaktan dan produk dengan benar.</li>
+                <li>Tulis persamaan reaksi yang belum setara.</li>
+                <li>Hitung jumlah atom setiap unsur di kedua ruas.</li>
+                <li>Tambahkan koefisien untuk menyetarakan jumlah atom.</li>
+                <li>Periksa kembali apakah persamaan sudah setara.</li>
+                <li>Tulis keadaan fisik zat (s, l, g, aq) jika diperlukan.</li>
+            </ol>
+            
+            <div class="example-box">
+                <p><strong>Contoh: Menyetarakan Reaksi Pembakaran Metana</strong></p>
+                <p>1. Tulis persamaan yang belum setara:</p>
+                <div class="chemical-equation">
+                    CH₄ + O₂ → CO₂ + H₂O
+                </div>
+                
+                <p>2. Hitung jumlah atom setiap unsur:</p>
+                <ul>
+                    <li>Kiri: C=1, H=4, O=2</li>
+                    <li>Kanan: C=1, H=2, O=3</li>
+                </ul>
+                
+                <p>3. Setarakan atom H dengan menambahkan koefisien 2 pada H₂O:</p>
+                <div class="chemical-equation">
+                    CH₄ + O₂ → CO₂ + 2H₂O
+                </div>
+                
+                <p>4. Setarakan atom O dengan menambahkan koefisien 2 pada O₂:</p>
+                <div class="chemical-equation">
+                    CH₄ + 2O₂ → CO₂ + 2H₂O
+                </div>
+                
+                <p>5. Periksa kembali:</p>
+                <ul>
+                    <li>Kiri: C=1, H=4, O=4</li>
+                    <li>Kanan: C=1, H=4, O=4</li>
+                </ul>
+                
+                <p>Persamaan sudah setara!</p>
+            </div>
+            
+            <div class="simulation-container">
+                <h3>Simulator Penyetaraan Reaksi Kimia</h3>
+                <div class="simulation-box" id="penulisan-simulation">
+                    <div style="padding: 2rem;">
+                        <p>Masukkan reaksi kimia yang ingin disetarakan:</p>
+                        <input type="text" id="reaction-input" placeholder="Contoh: H2 + O2 -> H2O" style="width: 80%; padding: 0.5rem; margin: 1rem 0;">
+                        <button class="btn" id="balance-btn">Setarakan</button>
+                        <div id="balanced-result" style="margin-top: 1rem; font-size: 1.2rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="simulasi" class="content-section">
+            <h2>Simulasi Interaktif Reaksi Kimia</h2>
+            <p>Simulasi ini menunjukkan bagaimana atom-atom bereaksi membentuk senyawa baru. Anda dapat memilih jenis reaksi dan mengamati perubahan yang terjadi.</p>
+            
+            <div class="simulation-container">
+                <div class="simulation-box" id="main-simulation">
+                    <!-- Simulasi utama akan diisi dengan JavaScript -->
+                </div>
+                <div class="control-panel">
+                    <select id="simulation-type">
+                        <option value="pembakaran">Reaksi Pembakaran</option>
+                        <option value="netralisasi">Reaksi Netralisasi</option>
+                        <option value="pengendapan">Reaksi Pengendapan</option>
+                    </select>
+                    <button class="btn" id="start-simulation">Mulai Simulasi</button>
+                    <button class="btn" id="reset-simulation">Reset</button>
+                </div>
+                <div id="simulation-info" style="margin-top: 1rem; text-align: left;"></div>
+            </div>
+        </section>
+        
+        <section id="latihan" class="content-section">
+            <h2>Latihan Soal</h2>
+            <p>Jawablah 5 soal berikut untuk menguji pemahaman Anda tentang reaksi kimia. Pilih salah satu jawaban yang paling tepat.</p>
+            
+            <div class="quiz-container">
+                <div class="question">
+                    <h3>Soal 1</h3>
+                    <p>Manakah dari berikut ini yang BUKAN merupakan ciri-ciri reaksi kimia?</p>
+                    <div class="options">
+                        <div class="option" data-value="A">A. Perubahan warna</div>
+                        <div class="option" data-value="B">B. Pembentukan endapan</div>
+                        <div class="option" data-value="C">C. Perubahan wujud zat</div>
+                        <div class="option" data-value="D">D. Perubahan suhu</div>
+                        <div class="option" data-value="E">E. Pembentukan gas</div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>Soal 2</h3>
+                    <p>Reaksi antara logam magnesium dengan asam klorida menghasilkan gas hidrogen. Jenis reaksi ini adalah:</p>
+                    <div class="options">
+                        <div class="option" data-value="A">A. Reaksi kombinasi</div>
+                        <div class="option" data-value="B">B. Reaksi dekomposisi</div>
+                        <div class="option" data-value="C">C. Reaksi penggantian tunggal</div>
+                        <div class="option" data-value="D">D. Reaksi penggantian ganda</div>
+                        <div class="option" data-value="E">E. Reaksi netralisasi</div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>Soal 3</h3>
+                    <p>Persamaan reaksi: 2H₂ + O₂ → 2H₂O merupakan contoh dari:</p>
+                    <div class="options">
+                        <div class="option" data-value="A">A. Reaksi dekomposisi</div>
+                        <div class="option" data-value="B">B. Reaksi penggantian tunggal</div>
+                        <div class="option" data-value="C">C. Reaksi netralisasi</div>
+                        <div class="option" data-value="D">D. Reaksi pembakaran</div>
+                        <div class="option" data-value="E">E. Reaksi kombinasi</div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>Soal 4</h3>
+                    <p>Koefisien yang tepat untuk menyetarakan reaksi: Al + O₂ → Al₂O₃ adalah:</p>
+                    <div class="options">
+                        <div class="option" data-value="A">A. 2, 3, 2</div>
+                        <div class="option" data-value="B">B. 4, 3, 2</div>
+                        <div class="option" data-value="C">C. 3, 2, 1</div>
+                        <div class="option" data-value="D">D. 1, 1, 1</div>
+                        <div class="option" data-value="E">E. 2, 1, 2</div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>Soal 5</h3>
+                    <p>Manakah dari berikut ini yang merupakan contoh reaksi penggantian ganda?</p>
+                    <div class="options">
+                        <div class="option" data-value="A">A. Zn + 2HCl → ZnCl₂ + H₂</div>
+                        <div class="option" data-value="B">B. 2H₂O → 2H₂ + O₂</div>
+                        <div class="option" data-value="C">C. CH₄ + 2O₂ → CO₂ + 2H₂O</div>
+                        <div class="option" data-value="D">D. AgNO₃ + NaCl → AgCl + NaNO₃</div>
+                        <div class="option" data-value="E">E. 2Mg + O₂ → 2MgO</div>
+                    </div>
+                </div>
+                
+                <button class="btn submit-btn" id="submit-quiz">Kumpulkan Jawaban</button>
+                <div class="result" id="quiz-result"></div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Media Pembelajaran Interaktif Kimia - Reaksi Kimia</p>
+        <p>© 2023 - Dibuat untuk tujuan edukasi</p>
+    </footer>
+    
+    <script>
+        // Navigasi antar bagian
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Hapus kelas active dari semua tombol
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Tambahkan kelas active ke tombol yang diklik
+                button.classList.add('active');
+                
+                // Sembunyikan semua bagian konten
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Tampilkan bagian konten yang sesuai
+                const targetId = button.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+        
+        // Simulasi Ciri-Ciri Reaksi Kimia
+        document.getElementById('start-ciri').addEventListener('click', () => {
+            const simulationBox = document.getElementById('ciri-simulation');
+            simulationBox.innerHTML = '';
+            
+            // Buat animasi perubahan warna
+            const colorChange = document.createElement('div');
+            colorChange.style.width = '100px';
+            colorChange.style.height = '100px';
+            colorChange.style.backgroundColor = 'blue';
+            colorChange.style.borderRadius = '10px';
+            colorChange.style.position = 'absolute';
+            colorChange.style.top = '50px';
+            colorChange.style.left = '50px';
+            colorChange.style.transition = 'background-color 2s';
+            simulationBox.appendChild(colorChange);
+            
+            // Buat animasi pembentukan gas
+            const gasBubbles = document.createElement('div');
+            gasBubbles.style.width = '200px';
+            gasBubbles.style.height = '150px';
+            gasBubbles.style.position = 'absolute';
+            gasBubbles.style.bottom = '20px';
+            gasBubbles.style.right = '50px';
+            gasBubbles.style.border = '1px solid #ccc';
+            gasBubbles.style.borderRadius = '10px';
+            simulationBox.appendChild(gasBubbles);
+            
+            // Buat animasi perubahan suhu
+            const tempIndicator = document.createElement('div');
+            tempIndicator.innerHTML = 'Suhu: 25°C';
+            tempIndicator.style.position = 'absolute';
+            tempIndicator.style.top = '20px';
+            tempIndicator.style.right = '20px';
+            tempIndicator.style.fontWeight = 'bold';
+            simulationBox.appendChild(tempIndicator);
+            
+            // Jalankan animasi
+            setTimeout(() => {
+                colorChange.style.backgroundColor = 'red';
+                
+                // Buat gelembung gas
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        const bubble = document.createElement('div');
+                        bubble.style.width = '15px';
+                        bubble.style.height = '15px';
+                        bubble.style.backgroundColor = 'lightblue';
+                        bubble.style.borderRadius = '50%';
+                        bubble.style.position = 'absolute';
+                        bubble.style.bottom = '10px';
+                        bubble.style.left = `${30 + i * 15}px`;
+                        gasBubbles.appendChild(bubble);
+                        
+                        // Animasi gelembung naik
+                        let pos = 10;
+                        const bubbleInterval = setInterval(() => {
+                            if (pos >= 130) {
+                                clearInterval(bubbleInterval);
+                                bubble.remove();
+                            } else {
+                                pos += 2;
+                                bubble.style.bottom = `${pos}px`;
+                            }
+                        }, 50);
+                    }, i * 300);
+                }
+                
+                // Animasi perubahan suhu
+                let temp = 25;
+                const tempInterval = setInterval(() => {
+                    if (temp >= 60) {
+                        clearInterval(tempInterval);
+                    } else {
+                        temp += 1;
+                        tempIndicator.innerHTML = `Suhu: ${temp}°C`;
+                    }
+                }, 100);
+            }, 1000);
+        });
+        
+        document.getElementById('reset-ciri').addEventListener('click', () => {
+            document.getElementById('ciri-simulation').innerHTML = '';
+        });
+        
+        // Simulasi Jenis Reaksi Kimia
+        document.getElementById('start-jenis').addEventListener('click', () => {
+            const simulationBox = document.getElementById('jenis-simulation');
+            simulationBox.innerHTML = '';
+            
+            const reactionType = document.getElementById('reaction-type').value;
+            
+            // Warna untuk atom yang berbeda
+            const atomColors = {
+                'H': '#FF6B6B',   // Merah
+                'O': '#4ECDC4',   // Hijau biru
+                'C': '#45B7D1',   // Biru
+                'Na': '#FFA500',  // Oranye
+                'Cl': '#96CEB4',  // Hijau muda
+                'Ag': '#C0C0C0',  // Perak
+            };
+            
+            if (reactionType === 'kombinasi') {
+                // Reaksi kombinasi: 2H₂ + O₂ → 2H₂O
+                simulationBox.innerHTML = '<p>Reaksi Kombinasi: 2H₂ + O₂ → 2H₂O</p>';
+                
+                // Buat atom H dan O
+                for (let i = 0; i < 4; i++) {
+                    const hAtom = document.createElement('div');
+                    hAtom.className = 'atom';
+                    hAtom.style.width = '30px';
+                    hAtom.style.height = '30px';
+                    hAtom.style.backgroundColor = atomColors['H'];
+                    hAtom.style.top = '100px';
+                    hAtom.style.left = `${50 + i * 40}px`;
+                    hAtom.innerHTML = 'H';
+                    simulationBox.appendChild(hAtom);
+                }
+                
+                const oAtom1 = document.createElement('div');
+                oAtom1.className = 'atom';
+                oAtom1.style.width = '40px';
+                oAtom1.style.height = '40px';
+                oAtom1.style.backgroundColor = atomColors['O'];
+                oAtom1.style.top = '100px';
+                oAtom1.style.left = '250px';
+                oAtom1.innerHTML = 'O';
+                simulationBox.appendChild(oAtom1);
+                
+                const oAtom2 = document.createElement('div');
+                oAtom2.className = 'atom';
+                oAtom2.style.width = '40px';
+                oAtom2.style.height = '40px';
+                oAtom2.style.backgroundColor = atomColors['O'];
+                oAtom2.style.top = '100px';
+                oAtom2.style.left = '300px';
+                oAtom2.innerHTML = 'O';
+                simulationBox.appendChild(oAtom2);
+                
+                // Animasi pembentukan molekul air
+                setTimeout(() => {
+                    // Molekul air pertama
+                    simulationBox.children[1].style.left = '150px';
+                    simulationBox.children[1].style.top = '150px';
+                    
+                    simulationBox.children[2].style.left = '150px';
+                    simulationBox.children[2].style.top = '150px';
+                    
+                    simulationBox.children[5].style.left = '150px';
+                    simulationBox.children[5].style.top = '150px';
+                    
+                    // Molekul air kedua
+                    setTimeout(() => {
+                        simulationBox.children[3].style.left = '250px';
+                        simulationBox.children[3].style.top = '150px';
+                        
+                        simulationBox.children[4].style.left = '250px';
+                        simulationBox.children[4].style.top = '150px';
+                        
+                        simulationBox.children[6].style.left = '250px';
+                        simulationBox.children[6].style.top = '150px';
+                    }, 1000);
+                }, 1000);
+                
+            } else if (reactionType === 'dekomposisi') {
+                // Reaksi dekomposisi: 2H₂O → 2H₂ + O₂
+                simulationBox.innerHTML = '<p>Reaksi Dekomposisi: 2H₂O → 2H₂ + O₂</p>';
+                
+                // Buat molekul air
+                for (let i = 0; i < 2; i++) {
+                    const waterMolecule = document.createElement('div');
+                    waterMolecule.style.position = 'absolute';
+                    waterMolecule.style.top = '100px';
+                    waterMolecule.style.left = `${150 + i * 100}px`;
+                    
+                    const oAtom = document.createElement('div');
+                    oAtom.className = 'atom';
+                    oAtom.style.width = '40px';
+                    oAtom.style.height = '40px';
+                    oAtom.style.backgroundColor = atomColors['O'];
+                    oAtom.style.position = 'absolute';
+                    oAtom.style.left = '20px';
+                    oAtom.style.top = '0';
+                    oAtom.innerHTML = 'O';
+                    waterMolecule.appendChild(oAtom);
+                    
+                    for (let j = 0; j < 2; j++) {
+                        const hAtom = document.createElement('div');
+                        hAtom.className = 'atom';
+                        hAtom.style.width = '30px';
+                        hAtom.style.height = '30px';
+                        hAtom.style.backgroundColor = atomColors['H'];
+                        hAtom.style.position = 'absolute';
+                        hAtom.style.left = `${j * 30}px`;
+                        hAtom.style.top = '30px';
+                        hAtom.innerHTML = 'H';
+                        waterMolecule.appendChild(hAtom);
+                    }
+                    
+                    simulationBox.appendChild(waterMolecule);
+                }
+                
+                // Animasi penguraian molekul air
+                setTimeout(() => {
+                    // Molekul air pertama terurai
+                    simulationBox.children[1].children[0].style.left = '50px';
+                    simulationBox.children[1].children[0].style.top = '50px';
+                    
+                    simulationBox.children[1].children[1].style.left = '0px';
+                    simulationBox.children[1].children[1].style.top = '150px';
+                    
+                    simulationBox.children[1].children[2].style.left = '30px';
+                    simulationBox.children[1].children[2].style.top = '150px';
+                    
+                    // Molekul air kedua terurai
+                    setTimeout(() => {
+                        simulationBox.children[2].children[0].style.left = '250px';
+                        simulationBox.children[2].children[0].style.top = '50px';
+                        
+                        simulationBox.children[2].children[1].style.left = '200px';
+                        simulationBox.children[2].children[1].style.top = '150px';
+                        
+                        simulationBox.children[2].children[2].style.left = '230px';
+                        simulationBox.children[2].children[2].style.top = '150px';
+                    }, 1000);
+                }, 1000);
+            }
+            // Jenis reaksi lainnya dapat ditambahkan di sini
+        });
+        
+        // Simulator Penyetaraan Reaksi Kimia
+        document.getElementById('balance-btn').addEventListener('click', () => {
+            const input = document.getElementById('reaction-input').value;
+            const resultDiv = document.getElementById('balanced-result');
+            
+            if (!input) {
+                resultDiv.innerHTML = '<p style="color: red;">Masukkan reaksi kimia terlebih dahulu!</p>';
+                return;
+            }
+            
+            // Contoh sederhana penyetaraan reaksi
+            if (input.toLowerCase().includes('h2 + o2 -> h2o')) {
+                resultDiv.innerHTML = '<p>Reaksi setara: <strong>2H₂ + O₂ → 2H₂O</strong></p>';
+            } else if (input.toLowerCase().includes('ch4 + o2 -> co2 + h2o')) {
+                resultDiv.innerHTML = '<p>Reaksi setara: <strong>CH₄ + 2O₂ → CO₂ + 2H₂O</strong></p>';
+            } else if (input.toLowerCase().includes('al + o2 -> al2o3')) {
+                resultDiv.innerHTML = '<p>Reaksi setara: <strong>4Al + 3O₂ → 2Al₂O₃</strong></p>';
+            } else {
+                resultDiv.innerHTML = '<p>Reaksi tidak dikenali. Coba contoh: H2 + O2 -> H2O</p>';
+            }
+        });
+        
+        // Simulasi Interaktif Reaksi Kimia
+        document.getElementById('start-simulation').addEventListener('click', () => {
+            const simulationBox = document.getElementById('main-simulation');
+            const simulationType = document.getElementById('simulation-type').value;
+            const infoDiv = document.getElementById('simulation-info');
+            
+            simulationBox.innerHTML = '';
+            infoDiv.innerHTML = '';
+            
+            if (simulationType === 'pembakaran') {
+                infoDiv.innerHTML = '<p><strong>Reaksi Pembakaran Metana:</strong> CH₄ + 2O₂ → CO₂ + 2H₂O</p>';
+                
+                // Buat animasi pembakaran
+                const flame = document.createElement('div');
+                flame.style.width = '100px';
+                flame.style.height = '150px';
+                flame.style.background = 'radial-gradient(ellipse at center, #ffa500 0%, #ff4500 70%)';
+                flame.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+                flame.style.position = 'absolute';
+                flame.style.bottom = '50px';
+                flame.style.left = '50%';
+                flame.style.transform = 'translateX(-50%)';
+                flame.style.opacity = '0.8';
+                simulationBox.appendChild(flame);
+                
+                // Animasi api berkedip
+                let opacity = 0.8;
+                setInterval(() => {
+                    opacity = opacity === 0.8 ? 0.6 : 0.8;
+                    flame.style.opacity = opacity;
+                }, 300);
+                
+            } else if (simulationType === 'netralisasi') {
+                infoDiv.innerHTML = '<p><strong>Reaksi Netralisasi:</strong> HCl + NaOH → NaCl + H₂O</p>';
+                
+                // Buat animasi netralisasi
+                const acid = document.createElement('div');
+                acid.style.width = '150px';
+                acid.style.height = '100px';
+                acid.style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
+                acid.style.position = 'absolute';
+                acid.style.bottom = '50px';
+                acid.style.left = '50px';
+                acid.style.borderRadius = '10px';
+                simulationBox.appendChild(acid);
+                
+                const base = document.createElement('div');
+                base.style.width = '150px';
+                base.style.height = '100px';
+                base.style.backgroundColor = 'rgba(0, 0, 255, 0.3)';
+                base.style.position = 'absolute';
+                base.style.bottom = '50px';
+                base.style.right = '50px';
+                base.style.borderRadius = '10px';
+                simulationBox.appendChild(base);
+                
+                // Animasi pencampuran
+                setTimeout(() => {
+                    acid.style.left = '200px';
+                    base.style.right = '200px';
+                    
+                    setTimeout(() => {
+                        acid.style.backgroundColor = 'rgba(128, 0, 128, 0.3)';
+                        base.style.backgroundColor = 'rgba(128, 0, 128, 0.3)';
+                    }, 1000);
+                }, 1000);
+            }
+            // Jenis simulasi lainnya dapat ditambahkan di sini
+        });
+        
+        document.getElementById('reset-simulation').addEventListener('click', () => {
+            document.getElementById('main-simulation').innerHTML = '';
+            document.getElementById('simulation-info').innerHTML = '';
+        });
+        
+        // Kuis Interaktif
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', () => {
+                // Hapus seleksi dari semua opsi dalam pertanyaan yang sama
+                const question = option.closest('.question');
+                question.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Tandai opsi yang dipilih
+                option.classList.add('selected');
+            });
+        });
+        
+        document.getElementById('submit-quiz').addEventListener('click', () => {
+            const answers = {
+                1: 'C', // Perubahan wujud zat bukan ciri reaksi kimia
+                2: 'C', // Reaksi penggantian tunggal
+                3: 'E', // Reaksi kombinasi
+                4: 'B', // 4Al + 3O₂ → 2Al₂O₃
+                5: 'D'  // AgNO₃ + NaCl → AgCl + NaNO₃
+            };
+            
+            let score = 0;
+            const questions = document.querySelectorAll('.question');
+            
+            questions.forEach((question, index) => {
+                const selectedOption = question.querySelector('.option.selected');
+                
+                if (selectedOption) {
+                    const userAnswer = selectedOption.getAttribute('data-value');
+                    const correctAnswer = answers[index + 1];
+                    
+                    if (userAnswer === correctAnswer) {
+                        selectedOption.classList.add('correct');
+                        score++;
+                    } else {
+                        selectedOption.classList.add('incorrect');
+                        // Tampilkan jawaban yang benar
+                        const correctOption = question.querySelector(`.option[data-value="${correctAnswer}"]`);
+                        correctOption.classList.add('correct');
+                    }
+                }
+            });
+            
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.innerHTML = `<p>Skor Anda: ${score} dari ${questions.length}</p>`;
+            
+            if (score === questions.length) {
+                resultDiv.innerHTML += '<p style="color: green;">Selamat! Anda menjawab semua soal dengan benar!</p>';
+            } else if (score >= 3) {
+                resultDiv.innerHTML += '<p style="color: orange;">Hasil cukup baik, tetapi masih perlu belajar lagi.</p>';
+            } else {
+                resultDiv.innerHTML += '<p style="color: red;">Anda perlu mempelajari materi ini lebih lanjut.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
